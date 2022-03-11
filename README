@@ -1,0 +1,11 @@
+La otp, am pus in al plaintext si in bl cheia si le-am parcurs. Am facut xor intre al si bl dupa care pun tot in edx care e cifrul dupa care am incrementat edx-ul si am facut loop la toate astea.
+La Caesar, in plaintext am un sir de caractere. fiecare caracter il cresc cu key. Daca cumva dupa adunare trece de z sau Z, il resetez la A + cat a mai ramas. Se rezolva prin adunari repetate cu 1 pana ajung sa adun cat key, iar daca caracter + key > z resetez si adun restul. Doar verific daca e z, daca nu adun 1, repet, iar daca e vreodata z, transform in a si nu mai aduni 1. Pun in al pe [esi + ecx - 1], verific daca e litera, iar daca da atunci ma duc la un loop in care adun cheie, unu cate unu folosind ebx si parcurg de la coada la cap.
+La Vigenere, e ca la Caesar, doar ca in loc sa am un key ca numar, in key am un string si fiecare litera din string reprezinta o valoare de shift: A = 0, B = 1 etc... Trebuie verificat daca sunt in a-z sau A-Z. Adaug un numar specific din cheie si sa fac shift din Z -> A daca este nevoie. Transform cheia in valori, dupa care iterez prin plaintext, iterez prin cheie si aplic Caesar cu valorile din plaintext (litera) si valoarea din cheie (cheia). Cand ajung la final de cheie resetez iteratorul ei la 0 si continui prin plaintext pana la final. Procedez la fel ca la strstr, am dereferentiat plaintext intr-un registru si sa accesez registru + ecx.
+La my_strstr, se găsește prima apariție a unui subșir intr-un șir sursă. Astel, am introdus variabile in data pentru haystack_len (elibereaza ecx), needle_len (elibereaza edx), pointerul haystack (elibereaza esi), pointerul needle (elibereaza ebx).
+eax - am bagat litera din haystack
+ebx - iterator prin haystack (loop mare)
+ecx - iterator prin needle (loop mic pentru compararea litera cu litera)
+edx - litera din needle
+esi - index intoarcere haystack daca nu se face compararea cu succes sau output daca da
+Daca nu se gaseste nimic in haystack atunci esi + 1 == haystack_len
+
